@@ -6,5 +6,6 @@ class Global {
         var selectedType: String? = null
         var animalList = mutableListOf<Animal>()
         var animal: Animal? = null
+        var shelter: Shelter? = null
     }
 }
