@@ -47,12 +47,12 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="200dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/description_animal_text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:hint="Описание" />
             </com.google.android.material.textfield.TextInputLayout>
         </FrameLayout>
@@ -115,26 +115,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/frameLayout4"
             app:layout_constraintVertical_bias="0.0">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
+                android:layout_gravity="start"
                 android:layout_margin="20dp"
-                android:layout_gravity="center_horizontal"
-                android:text="Укажите адрес" />
+                android:layout_marginStart="20dp"
+                android:text="Выберите адрес"
+                android:textSize="18sp" />
 
             <com.yandex.mapkit.mapview.MapView
                 android:id="@+id/yandex_map"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"/>
-            <Button
-                android:id="@+id/open_maps_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center_horizontal"
-                android:text="Карта" />
-
 
 
         </LinearLayout>

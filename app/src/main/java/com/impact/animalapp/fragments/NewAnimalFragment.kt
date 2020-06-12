@@ -1,11 +1,8 @@
 package com.impact.animalapp.fragments
 
-import android.app.AlertDialog
 import android.content.Context
 import android.content.ContextWrapper
-import android.content.DialogInterface
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.PointF
@@ -18,8 +15,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,17 +25,11 @@ import com.google.firebase.storage.FirebaseStorage
 import com.impact.animalapp.R
 import com.impact.animalapp.adapters.TypeRvAdapter
 import com.impact.animalapp.models.Global
-import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.layers.ObjectEvent
-import com.yandex.mapkit.location.Location
-import com.yandex.mapkit.location.LocationListener
-import com.yandex.mapkit.location.LocationStatus
 import com.yandex.mapkit.map.CameraPosition
 import com.yandex.mapkit.map.CompositeIcon
-import com.yandex.mapkit.map.IconStyle
-import com.yandex.mapkit.map.RotationType
 import com.yandex.mapkit.mapview.MapView
 import com.yandex.mapkit.user_location.UserLocationLayer
 import com.yandex.mapkit.user_location.UserLocationObjectListener
@@ -48,8 +37,8 @@ import com.yandex.mapkit.user_location.UserLocationView
 import com.yandex.runtime.image.ImageProvider
 import kotlinx.android.synthetic.main.fragment_new_animal.*
 import java.io.*
+import java.text.SimpleDateFormat
 import java.util.*
-import java.util.jar.Manifest
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -169,22 +158,29 @@ class NewAnimalFragment : Fragment(), UserLocationObjectListener {
 
     private fun loadToFirestore(type: String, description: String, contacts: String, downloadUri: String) {
 
-            var hashMap = hashMapOf<String, Any>(
-                "type" to type,
-                "description" to description,
-                "contacts" to contacts,
-                "photo" to downloadUri.toString()
-            )
+        val date = Date()
+        val time = date.time
+        val currentDate = date.date
 
-            val firebaseFirestore = FirebaseFirestore.getInstance()
-                .collection("animals")
-                .add(hashMap)
-                .addOnSuccessListener {
+        var hashMap = hashMapOf<String, Any>(
+            "type" to type,
+            "description" to description,
+            "contacts" to contacts,
+            "photo" to downloadUri.toString(),
+            "status" to "В обработке",
+            "date" to SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
 
-                }
-                .addOnFailureListener{
-                    Log.d("LoadData", it.message.toString())
-                }
+        )
+
+        val firebaseFirestore = FirebaseFirestore.getInstance()
+            .collection("animals")
+            .add(hashMap)
+            .addOnSuccessListener {
+
+            }
+            .addOnFailureListener{
+                Log.d("LoadData", it.message.toString())
+            }
 
     }
 

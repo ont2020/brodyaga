@@ -31,12 +31,14 @@ class AnimalRequestRvAdapter (private val items: MutableList<Animal>, var navCon
     inner class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var typeText = itemView.findViewById<TextView>(R.id.type_animal_request_item)
         private var contactsText = itemView.findViewById<TextView>(R.id.contacts_animal_request_item)
+        private var dateText = itemView.findViewById<TextView>(R.id.date_require_animal_text)
         private var image = itemView.findViewById<ImageView>(R.id.image_animal_request_item)
 
 
         fun  bind(item: Animal) {
             typeText.text = item.type
             contactsText.text = item.contacts
+            dateText.text = item.date_require
 
             Picasso.get()
                 .load(item.image)

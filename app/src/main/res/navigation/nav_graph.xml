@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_mainFragment_to_requestAnimalFragment"
             app:destination="@id/requestAnimalFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_animalListFragment"
+            app:destination="@id/animalListFragment" />
     </fragment>
     <fragment
         android:id="@+id/advanceAuthFragment"
@@ -62,4 +65,9 @@
         android:name="com.impact.animalapp.fragments.AnimalProfileFragment"
         android:label="fragment_animal_profile"
         tools:layout="@layout/fragment_animal_profile" />
+    <fragment
+        android:id="@+id/animalListFragment"
+        android:name="com.impact.animalapp.fragments.AnimalListFragment"
+        android:label="fragment_animal_list"
+        tools:layout="@layout/fragment_animal_list" />
 </navigation>
