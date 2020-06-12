@@ -50,7 +50,11 @@
         android:id="@+id/newAnimalFragment"
         android:name="com.impact.animalapp.fragments.NewAnimalFragment"
         android:label="fragment_new_animal"
-        tools:layout="@layout/fragment_new_animal" />
+        tools:layout="@layout/fragment_new_animal" >
+        <action
+            android:id="@+id/action_newAnimalFragment_to_requestAnimalFragment"
+            app:destination="@id/requestAnimalFragment" />
+    </fragment>
     <fragment
         android:id="@+id/requestAnimalFragment"
         android:name="com.impact.animalapp.fragments.RequestAnimalFragment"

@@ -40,7 +40,7 @@ class MainFragment : Fragment() {
         val btn2 = root.findViewById<Button>(R.id.button3)
         val btn3 = root.findViewById<Button>(R.id.button4)
         val navController = findNavController()
-        getAnimal()
+
 
 
         btn.setOnClickListener {
@@ -57,33 +57,7 @@ class MainFragment : Fragment() {
         return root
     }
 
-    private fun getAnimal() {
-        var firebaseFirestore = FirebaseFirestore.getInstance()
-            .collection("animals")
-            .whereEqualTo("status", "В обработке")
-            .get()
-            .addOnSuccessListener {
-                Log.d("LoadedRequire", it.documents.size.toString())
-                val documentList = it.documents
-                for (document in it.documents) {
-                    var animal = Animal(
-                        document["type"].toString(),
-                        document["date"].toString(),
-                        document["contacts"].toString(),
-                        document["shelter"].toString(),
-                        document["status"].toString(),
-                        document["photo"].toString()
-                    )
 
-                    animalList.add(animal)
-                }
-                Log.d("Animal", animalList.size.toString())
-
-            }
-            .addOnFailureListener {
-                Log.d("LoadFail", it.message.toString())
-            }
-    }
 
 
 

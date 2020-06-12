@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -67,6 +68,7 @@ class NewAnimalFragment : Fragment(), UserLocationObjectListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         MapKitFactory.setApiKey("20cec70e-e925-4d2e-8d66-accc84e9b541");
         MapKitFactory.initialize(requireContext());
         val root = inflater.inflate(R.layout.fragment_new_animal, container, false)
@@ -75,6 +77,7 @@ class NewAnimalFragment : Fragment(), UserLocationObjectListener {
         val contactsText = root.findViewById<TextInputEditText>(R.id.contact_animal_text)
         val acceptFab = root.findViewById<FloatingActionButton>(R.id.accept_fab)
         val animalPic = root.findViewById<ImageView>(R.id.dog_pic)
+        val navController = findNavController()
         mapView = root.findViewById(R.id.yandex_map)
         mapView?.map?.move(CameraPosition(Point(0.0, 0.0), 14.0f, 0.0f, 0.0f))
         val mapKit = MapKitFactory.getInstance()
@@ -95,7 +98,7 @@ class NewAnimalFragment : Fragment(), UserLocationObjectListener {
 
             if (descriptionText.text != null && contactsText.text != null) {
                 Global.selectedType?.let { it1 -> saveData(it1, descriptionText.text.toString(), contactsText.text.toString()) }
-
+                navController.navigate(R.id.action_newAnimalFragment_to_requestAnimalFragment)
             }
         }
 

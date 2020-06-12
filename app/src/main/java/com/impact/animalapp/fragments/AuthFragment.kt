@@ -39,7 +39,6 @@ class AuthFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_auth, container, false)
         val simpleBtn = root.findViewById<Button>(R.id.simple_auth_btn)
-        val advanceBtn = root.findViewById<Button>(R.id.advance_auth_btn)
         val navController = findNavController()
 
 
@@ -47,9 +46,7 @@ class AuthFragment : Fragment() {
             createSignInIntent(navController)
         }
 
-        advanceBtn.setOnClickListener {
-            navController.navigate(R.id.action_authFragment_to_advanceAuthFragment)
-        }
+
 
         return root
     }
