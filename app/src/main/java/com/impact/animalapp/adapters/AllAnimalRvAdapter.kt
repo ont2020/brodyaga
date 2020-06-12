@@ -12,7 +12,7 @@ import com.impact.animalapp.models.Animal
 import com.impact.animalapp.models.Global
 import com.squareup.picasso.Picasso
 
-class AnimalRequestRvAdapter (private val items: MutableList<Animal>, var navController: NavController): RecyclerView.Adapter<AnimalRequestRvAdapter.ViewHolder>() {
+class AllAnimalRvAdapter (private val items: MutableList<Animal>, var navController: NavController): RecyclerView.Adapter<AllAnimalRvAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.animal_request_item, parent, false))
@@ -24,7 +24,7 @@ class AnimalRequestRvAdapter (private val items: MutableList<Animal>, var navCon
 
         holder.itemView.setOnClickListener {
             Global.animal = items[position]
-            navController.navigate(R.id.action_requestAnimalFragment_to_animalProfileFragment)
+            navController.navigate(R.id.action_animalListFragment_to_animalProfileFragment)
         }
 
     }
@@ -53,4 +53,3 @@ class AnimalRequestRvAdapter (private val items: MutableList<Animal>, var navCon
 
     }
 }
-

@@ -73,5 +73,9 @@
         android:id="@+id/animalListFragment"
         android:name="com.impact.animalapp.fragments.AnimalListFragment"
         android:label="fragment_animal_list"
-        tools:layout="@layout/fragment_animal_list" />
+        tools:layout="@layout/fragment_animal_list" >
+        <action
+            android:id="@+id/action_animalListFragment_to_animalProfileFragment"
+            app:destination="@id/animalProfileFragment" />
+    </fragment>
 </navigation>

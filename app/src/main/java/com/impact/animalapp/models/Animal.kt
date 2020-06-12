@@ -6,5 +6,8 @@ data class Animal (
     val contacts: String,
     val shelter: String,
     val status: String,
-    val image: String
+    val image: String,
+    val stateHealth: String,
+    val isChip: String,
+    val description: String
 )

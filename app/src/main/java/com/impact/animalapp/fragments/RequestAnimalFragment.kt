@@ -82,7 +82,11 @@ class RequestAnimalFragment : Fragment() {
                         document["contacts"].toString(),
                         document["shelter"].toString(),
                         document["status"].toString(),
-                        document["photo"].toString()
+                        document["photo"].toString(),
+                        document["state_health"].toString(),
+                        document["chip"].toString(),
+                        document["description"].toString()
+
                     )
 
                     animalList.add(animal)

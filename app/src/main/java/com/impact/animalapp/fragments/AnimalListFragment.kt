@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.impact.animalapp.R
+import com.impact.animalapp.adapters.AllAnimalRvAdapter
 import com.impact.animalapp.adapters.AnimalRequestRvAdapter
 import com.impact.animalapp.models.Animal
 import com.impact.animalapp.models.Global
@@ -51,7 +52,7 @@ class AnimalListFragment : Fragment() {
         val navController = findNavController()
         recyclerView = root.findViewById<RecyclerView>(R.id.animal_main_rv)
         recyclerView?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        val adapter = AnimalRequestRvAdapter(animalList, navController)
+        val adapter = AllAnimalRvAdapter(animalList, navController)
         //adapter.notifyDataSetChanged()
         recyclerView?.adapter = adapter
 
@@ -81,7 +82,11 @@ class AnimalListFragment : Fragment() {
                         document["contacts"].toString(),
                         document["shelter"].toString(),
                         document["status"].toString(),
-                        document["photo"].toString()
+                        document["photo"].toString(),
+                        document["state_health"].toString(),
+                        document["chip"].toString(),
+                        document["description"].toString()
+
                     )
 
                     animalList.add(animal)
