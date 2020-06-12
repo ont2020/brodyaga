@@ -46,11 +46,14 @@ class ShelterFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_shelter, container, false)
         val navController = findNavController()
-        recyclerView = root.findViewById<RecyclerView>(R.id.animal_main_rv)
+        recyclerView = root.findViewById<RecyclerView>(R.id.shelter_rv)
         recyclerView?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         val adapter = ShelterRvAdapter(shelterList, navController)
         //adapter.notifyDataSetChanged()
         recyclerView?.adapter = adapter
+
+
+        getData()
         return root
     }
 

@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_mainFragment_to_animalListFragment"
             app:destination="@id/animalListFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_shelterFragment"
+            app:destination="@id/shelterFragment" />
     </fragment>
     <fragment
         android:id="@+id/advanceAuthFragment"
@@ -78,4 +81,9 @@
             android:id="@+id/action_animalListFragment_to_animalProfileFragment"
             app:destination="@id/animalProfileFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/shelterFragment"
+        android:name="com.impact.animalapp.fragments.ShelterFragment"
+        android:label="fragment_shelter"
+        tools:layout="@layout/fragment_shelter" />
 </navigation>

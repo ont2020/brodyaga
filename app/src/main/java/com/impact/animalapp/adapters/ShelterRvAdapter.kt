@@ -42,9 +42,11 @@ class ShelterRvAdapter (private val items: MutableList<Shelter>, var navControll
             address.text = item.address
 
 
-            Picasso.get()
+            /*Picasso.get()
                 .load(item.image)
-                .into(image)
+                .error(R.drawable.camera)
+                .into(image)*/
+
         }
     }
 

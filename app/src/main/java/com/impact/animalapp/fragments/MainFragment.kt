@@ -39,6 +39,7 @@ class MainFragment : Fragment() {
         val btn = root.findViewById<Button>(R.id.button2)
         val btn2 = root.findViewById<Button>(R.id.button3)
         val btn3 = root.findViewById<Button>(R.id.button4)
+        val btn4 = root.findViewById<Button>(R.id.button5)
         val navController = findNavController()
 
 
@@ -53,6 +54,9 @@ class MainFragment : Fragment() {
 
         btn3.setOnClickListener {
             navController.navigate(R.id.action_mainFragment_to_animalListFragment)
+        }
+        btn4.setOnClickListener {
+            navController.navigate(R.id.action_mainFragment_to_shelterFragment)
         }
         return root
     }
