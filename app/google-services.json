@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "915754209970",
+    "firebase_url": "https://animal-app-720de.firebaseio.com",
+    "project_id": "animal-app-720de",
+    "storage_bucket": "animal-app-720de.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:915754209970:android:a7827d9500dcc799122fab",
+        "android_client_info": {
+          "package_name": "com.impact.animalapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "915754209970-cdcm1sjpao8f0qhlelijt2g5pidg3v7u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.impact.animalapp",
+            "certificate_hash": "0757c45a9e031fdeb3d7f74f9c16488a479d5112"
+          }
+        },
+        {
+          "client_id": "915754209970-hcovmo9m5v502kafb9oqjlovlak5s0ap.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYxc52tCC-N1jreYXsi99U2CkPTU2ske4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "915754209970-hcovmo9m5v502kafb9oqjlovlak5s0ap.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.impact.animalapp.fragments.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_authFragment"
+            app:destination="@id/authFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="com.impact.animalapp.fragments.AuthFragment"
+        android:label="fragment_auth"
+        tools:layout="@layout/fragment_auth" >
+        <action
+            android:id="@+id/action_authFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_authFragment_to_advanceAuthFragment"
+            app:destination="@id/advanceAuthFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.impact.animalapp.fragments.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_newAnimalFragment"
+            app:destination="@id/newAnimalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/advanceAuthFragment"
+        android:name="com.impact.animalapp.fragments.AdvanceAuthFragment"
+        android:label="fragment_advance_auth"
+        tools:layout="@layout/fragment_advance_auth" />
+    <fragment
+        android:id="@+id/newAnimalFragment"
+        android:name="com.impact.animalapp.fragments.NewAnimalFragment"
+        android:label="fragment_new_animal"
+        tools:layout="@layout/fragment_new_animal" />
+</navigation>
