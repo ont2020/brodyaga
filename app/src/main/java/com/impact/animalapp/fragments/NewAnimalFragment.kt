@@ -1,34 +1,55 @@
 package com.impact.animalapp.fragments
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.PointF
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.impact.animalapp.R
 import com.impact.animalapp.adapters.TypeRvAdapter
+import com.impact.animalapp.models.Global
+import com.yandex.mapkit.Animation
+import com.yandex.mapkit.MapKitFactory
+import com.yandex.mapkit.geometry.Point
+import com.yandex.mapkit.layers.ObjectEvent
+import com.yandex.mapkit.location.Location
+import com.yandex.mapkit.location.LocationListener
+import com.yandex.mapkit.location.LocationStatus
+import com.yandex.mapkit.map.CameraPosition
+import com.yandex.mapkit.map.CompositeIcon
+import com.yandex.mapkit.map.IconStyle
+import com.yandex.mapkit.map.RotationType
+import com.yandex.mapkit.mapview.MapView
+import com.yandex.mapkit.user_location.UserLocationLayer
+import com.yandex.mapkit.user_location.UserLocationObjectListener
+import com.yandex.mapkit.user_location.UserLocationView
+import com.yandex.runtime.image.ImageProvider
 import kotlinx.android.synthetic.main.fragment_new_animal.*
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.OutputStream
+import java.io.*
 import java.util.*
+import java.util.jar.Manifest
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -39,12 +60,15 @@ import java.util.*
  * Use the [NewAnimalFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class NewAnimalFragment : Fragment() {
+class NewAnimalFragment : Fragment(), UserLocationObjectListener {
     private var typeNameList = mutableListOf<String>("Собака", "Кошка", "Корова", "Енот")
     private val REQUEST_IMAGE_CAPTURE = 1
     private var bitmap: Bitmap? = null
     private var uriImgFile: Uri? = null
     private var file: File? = null
+    private var downloadUri = ""
+    private var userLocationLayer: UserLocationLayer? = null
+    private var mapView: MapView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -54,12 +78,21 @@ class NewAnimalFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        MapKitFactory.setApiKey("20cec70e-e925-4d2e-8d66-accc84e9b541");
+        MapKitFactory.initialize(requireContext());
         val root = inflater.inflate(R.layout.fragment_new_animal, container, false)
         val typeRv = root.findViewById<RecyclerView>(R.id.type_animal_rv)
         val descriptionText = root.findViewById<TextInputEditText>(R.id.description_animal_text)
         val contactsText = root.findViewById<TextInputEditText>(R.id.contact_animal_text)
         val acceptFab = root.findViewById<FloatingActionButton>(R.id.accept_fab)
         val animalPic = root.findViewById<ImageView>(R.id.dog_pic)
+        mapView = root.findViewById(R.id.yandex_map)
+        mapView?.map?.move(CameraPosition(Point(0.0, 0.0), 14.0f, 0.0f, 0.0f))
+        val mapKit = MapKitFactory.getInstance()
+        userLocationLayer = mapKit.createUserLocationLayer(mapView?.mapWindow!!)
+        userLocationLayer?.isVisible = true
+        userLocationLayer?.isHeadingEnabled = true
+        userLocationLayer?.setObjectListener(this)
 
         val adapter = TypeRvAdapter(typeNameList)
         typeRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -70,7 +103,9 @@ class NewAnimalFragment : Fragment() {
         }
 
         acceptFab.setOnClickListener {
+
             if (descriptionText.text != null && contactsText.text != null) {
+                Global.selectedType?.let { it1 -> saveData(it1, descriptionText.text.toString(), contactsText.text.toString()) }
 
             }
         }
@@ -82,15 +117,75 @@ class NewAnimalFragment : Fragment() {
         return root
     }
 
-    private fun saveData() {
-        val storageRef = FirebaseStorage.getInstance().reference
-            .putFile(uriImgFile!!)
-            .addOnSuccessListener {
-                
+    override fun onStart() {
+        super.onStart()
+        mapView?.onStart()
+        MapKitFactory.getInstance().onStart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mapView?.onStop()
+        MapKitFactory.getInstance().onStop()
+    }
+
+    private fun saveData(type: String, description: String, contacts: String) {
+        var downloadUri2: String? = null
+        val storage = FirebaseStorage.getInstance()
+        val storageRef = storage.reference
+        val baos = ByteArrayOutputStream()
+        bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val data = baos.toByteArray()
+        val mountainsRef = storageRef.child("images/${UUID.randomUUID()}.jpg")
+        var uploadTask = mountainsRef.putBytes(data)
+
+
+        // Register observers to listen for when the download is done or if it fails
+        val urlTask = uploadTask.continueWithTask { task ->
+            if (!task.isSuccessful) {
+                task.exception?.let {
+                    throw it
+                }
             }
-            .addOnFailureListener {
-                Log.d("LoadStatus", it.message.toString())
+            mountainsRef.downloadUrl
+        }.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                downloadUri = task.result.toString()
+                Log.d("LoadSuccess", downloadUri)
+                loadToFirestore(type, description, contacts, downloadUri)
+            } else {
+                // Handle failures
+                // ...
             }
+        }
+
+
+
+
+
+
+
+    }
+
+    private fun loadToFirestore(type: String, description: String, contacts: String, downloadUri: String) {
+
+            var hashMap = hashMapOf<String, Any>(
+                "type" to type,
+                "description" to description,
+                "contacts" to contacts,
+                "photo" to downloadUri.toString()
+            )
+
+            val firebaseFirestore = FirebaseFirestore.getInstance()
+                .collection("animals")
+                .add(hashMap)
+                .addOnSuccessListener {
+
+                }
+                .addOnFailureListener{
+                    Log.d("LoadData", it.message.toString())
+                }
+
     }
 
 
@@ -137,6 +232,53 @@ class NewAnimalFragment : Fragment() {
         file = file2
 
     }
+
+    override fun onObjectUpdated(p0: UserLocationView, p1: ObjectEvent) {
+
+    }
+
+    override fun onObjectRemoved(p0: UserLocationView) {
+    }
+
+    override fun onObjectAdded(userLocationView: UserLocationView) {
+        userLocationLayer?.setAnchor(PointF((mapView?.getWidth()!! * 0.5).toFloat(), (mapView?.getHeight()!! * 0.5).toFloat()),
+            PointF((mapView?.getWidth()!! * 0.5).toFloat(), (mapView?.getHeight()!! * 0.83).toFloat()))
+
+
+        userLocationView.getArrow().setIcon(
+            ImageProvider.fromResource(
+                requireContext(), R.drawable.ic_baseline_navigation_24
+            )
+        )
+        Log.d("Pin22", userLocationView.pin.toString())
+
+        val pinIcon: CompositeIcon = userLocationView.getPin().useCompositeIcon()
+
+        /*pinIcon.setIcon(
+            "icon",
+            ImageProvider.fromResource(requireContext(), R.drawable.),
+            IconStyle().setAnchor(PointF(0f, 0f))
+                .setRotationType(RotationType.ROTATE)
+                .setZIndex(0f)
+                .setScale(1f)
+        )*/
+
+        /*pinIcon.setIcon(
+            "pin",
+            ImageProvider.fromResource(requireContext(), R.drawable.dog),
+            IconStyle().setAnchor(PointF(0.5f, 0.5f))
+                .setRotationType(RotationType.ROTATE)
+                .setZIndex(1f)
+                .setScale(0.5f)
+        )*/
+
+        userLocationView.getAccuracyCircle().setFillColor(Color.BLUE)
+    }
+
+
+
+
+
 
 
 

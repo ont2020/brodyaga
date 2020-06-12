@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.impact.animalapp.R
+import com.impact.animalapp.models.Global
 
 class TypeRvAdapter (private val items: MutableList<String>): RecyclerView.Adapter<TypeRvAdapter.ViewHolder>() {
     private var posSelected = -1
@@ -41,6 +42,7 @@ class TypeRvAdapter (private val items: MutableList<String>): RecyclerView.Adapt
             //Global.selectedType = items[position]
             //Toast.makeText(context, position, Toast.LENGTH_LONG).show()
             Log.d("Click", position.toString())
+            Global.selectedType = items[position]
 
             notifyDataSetChanged()
 

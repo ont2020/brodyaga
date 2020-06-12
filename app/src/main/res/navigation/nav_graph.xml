@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_mainFragment_to_newAnimalFragment"
             app:destination="@id/newAnimalFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_requestAnimalFragment"
+            app:destination="@id/requestAnimalFragment" />
     </fragment>
     <fragment
         android:id="@+id/advanceAuthFragment"
@@ -45,4 +48,18 @@
         android:name="com.impact.animalapp.fragments.NewAnimalFragment"
         android:label="fragment_new_animal"
         tools:layout="@layout/fragment_new_animal" />
+    <fragment
+        android:id="@+id/requestAnimalFragment"
+        android:name="com.impact.animalapp.fragments.RequestAnimalFragment"
+        android:label="fragment_request_animal"
+        tools:layout="@layout/fragment_request_animal" >
+        <action
+            android:id="@+id/action_requestAnimalFragment_to_animalProfileFragment"
+            app:destination="@id/animalProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/animalProfileFragment"
+        android:name="com.impact.animalapp.fragments.AnimalProfileFragment"
+        android:label="fragment_animal_profile"
+        tools:layout="@layout/fragment_animal_profile" />
 </navigation>
