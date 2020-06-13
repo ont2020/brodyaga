@@ -86,7 +86,11 @@
         android:id="@+id/animalProfileEditorFragment"
         android:name="com.impact.animalapp.fragments.AnimalProfileEditorFragment"
         android:label="fragment_animal_profile_editor"
-        tools:layout="@layout/fragment_animal_profile_editor" />
+        tools:layout="@layout/fragment_animal_profile_editor" >
+        <action
+            android:id="@+id/action_animalProfileEditorFragment_to_animalProfileFragment"
+            app:destination="@id/animalProfileFragment" />
+    </fragment>
 
 
 </navigation>

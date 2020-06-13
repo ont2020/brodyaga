@@ -1,5 +1,7 @@
 package com.impact.animalapp.adapters
 
+import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +15,7 @@ import com.impact.animalapp.models.Shelter
 import com.squareup.picasso.Picasso
 
 class ShelterInProfileRvAdapter (private val items: MutableList<Shelter>): RecyclerView.Adapter<ShelterInProfileRvAdapter.ViewHolder>() {
-
+    private var posSelected = -1
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.shelter_item, parent, false))
 
@@ -22,8 +24,19 @@ class ShelterInProfileRvAdapter (private val items: MutableList<Shelter>): Recyc
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(items[position])
 
+        if(posSelected == position) {
+            holder.itemView.setBackgroundColor(Color.parseColor("#FF9800"))
+        } else {
+            holder.itemView.setBackgroundColor(Color.parseColor("#ffffff"))
+        }
         holder.itemView.setOnClickListener {
-            //Global.shelter = items[position]
+            posSelected = position
+            //Global.selectedType = items[position]
+            //Toast.makeText(context, position, Toast.LENGTH_LONG).show()
+            Log.d("Click", position.toString())
+            Global.selectedShelter = items[position].name
+
+            notifyDataSetChanged()
 
         }
 

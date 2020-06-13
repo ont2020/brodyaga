@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -117,14 +118,14 @@ class AnimalProfileEditorFragment : Fragment() {
             var isChipCurrent = Global.animal?.isChip
             var docId = Global.animal?.animalDocId
             if (docId != null) {
-                writeData(contacts, health, description, statusCurrent, isChipCurrent, docId)
+                writeData(navController, contacts, health, description, statusCurrent, isChipCurrent, docId)
             }
         }
         getData()
         return root
     }
 
-    private fun writeData(contacts: String, health: String, description: String, status: String?, chip: String?, docId: String) {
+    private fun writeData(nav: NavController, contacts: String, health: String, description: String, status: String?, chip: String?, docId: String) {
         var hashMap = hashMapOf<String, Any>(
             "type" to Global.animal?.type!!,
             "description" to description,
@@ -134,7 +135,7 @@ class AnimalProfileEditorFragment : Fragment() {
             "date" to Global.animal?.date_require!!,
             "latitude" to Global.animal?.latitude!!,
             "longitude" to Global.animal?.longitude!!,
-            "shelter" to "Нету",
+            "shelter" to Global.selectedShelter!!,
             "state_health" to health,
             "chip" to chip?.toBoolean()!!
         )
@@ -145,7 +146,7 @@ class AnimalProfileEditorFragment : Fragment() {
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     it.addOnSuccessListener {
-
+                        nav.navigate(R.id.action_animalProfileEditorFragment_to_animalProfileFragment)
                     }.addOnFailureListener {
                         Log.d("Fail", it.message.toString())
                     }
@@ -174,7 +175,8 @@ class AnimalProfileEditorFragment : Fragment() {
                         document["contacts"].toString(),
                         document["description"].toString(),
                         document["schedule"].toString(),
-                        document["image"].toString()
+                        document["image"].toString(),
+                        document.id
                     )
 
                     shelterList.add(shelter)

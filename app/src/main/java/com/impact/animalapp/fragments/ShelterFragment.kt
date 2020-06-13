@@ -79,7 +79,8 @@ class ShelterFragment : Fragment() {
                         document["contacts"].toString(),
                         document["description"].toString(),
                         document["schedule"].toString(),
-                        document["image"].toString()
+                        document["image"].toString(),
+                        document.id
                     )
 
                     shelterList.add(shelter)

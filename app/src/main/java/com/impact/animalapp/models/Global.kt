@@ -8,5 +8,6 @@ class Global {
         var animal: Animal? = null
         var shelter: Shelter? = null
         var user: User? = null
+        var selectedShelter: String? = null
     }
 }
