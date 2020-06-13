@@ -5,11 +5,12 @@ data class Animal (
     val date_require: String,
     val contacts: String,
     val shelter: String,
-    val status: String,
+    var status: String,
     val image: String,
     val stateHealth: String,
-    val isChip: String,
+    var isChip: String,
     val description: String,
     val latitude: String,
-    val longitude: String
+    val longitude: String,
+    val animalDocId: String
 )

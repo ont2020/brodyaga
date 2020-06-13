@@ -87,7 +87,8 @@ class AnimalListFragment : Fragment() {
                         document["chip"].toString(),
                         document["description"].toString(),
                         document["latitude"].toString(),
-                        document["longitude"].toString()
+                        document["longitude"].toString(),
+                        document.id
 
                     )
 
