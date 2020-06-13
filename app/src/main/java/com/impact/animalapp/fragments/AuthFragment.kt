@@ -56,9 +56,8 @@ class AuthFragment : Fragment() {
 
     private fun createSignInIntent( navController: NavController) {
         val providers = arrayListOf(
-            AuthUI.IdpConfig.EmailBuilder().build(),
+            AuthUI.IdpConfig.EmailBuilder().build())
             //AuthUI.IdpConfig.PhoneBuilder().build(),
-            AuthUI.IdpConfig.GoogleBuilder().build())
             //AuthUI.IdpConfig.FacebookBuilder().build(),
             //AuthUI.IdpConfig.TwitterBuilder().build())
 
