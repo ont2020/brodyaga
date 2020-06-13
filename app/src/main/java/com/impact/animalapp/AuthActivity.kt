@@ -9,6 +9,7 @@ import androidx.navigation.NavController
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
+import com.impact.animalapp.worker.WorkerLoginActivity
 
 class AuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +19,7 @@ class AuthActivity : AppCompatActivity() {
         val userBtn = findViewById<Button>(R.id.user_sign_btn)
 
         workerBtn.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, WorkerLoginActivity::class.java))
         }
         userBtn.setOnClickListener {
             createSignInIntent()

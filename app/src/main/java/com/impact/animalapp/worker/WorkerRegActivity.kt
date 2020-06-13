@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.Toast
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -37,7 +38,11 @@ class WorkerRegActivity : AppCompatActivity() {
             if(!name.isNullOrEmpty() && !email.isNullOrEmpty() && !organization.isNullOrEmpty() && !password.isNullOrEmpty() && !password2.isNullOrEmpty() ) {
                 if (password == password2) {
                     signUp(email.toString(), name.toString(), organization.toString(), password.toString())
+                } else {
+                    Toast.makeText(this, "Пароли не совпадают", Toast.LENGTH_LONG).show()
                 }
+            } else {
+                Toast.makeText(this, "Не все поля заполнены", Toast.LENGTH_LONG).show()
             }
         }
 
@@ -74,6 +79,7 @@ class WorkerRegActivity : AppCompatActivity() {
 
             }.addOnFailureListener {
                 Log.d("RegFail", it.message.toString())
+                Toast.makeText(this, "Ошибка в регистрации", Toast.LENGTH_LONG).show()
             }
     }
 }
