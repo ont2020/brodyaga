@@ -199,7 +199,9 @@ class NewAnimalFragment : Fragment(), UserLocationObjectListener {
             "status" to "В обработке",
             "date" to SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date()),
             "latitude" to latitude,
-            "longitude" to longitude
+            "longitude" to longitude,
+            "shelter" to "Нету",
+            "state_health" to "Не определено"
 
         )
 

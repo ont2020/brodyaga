@@ -1,6 +1,9 @@
 package com.impact.animalapp.fragments
 
+import android.graphics.Color
+import android.graphics.PointF
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,8 +19,14 @@ import com.impact.animalapp.models.Global
 import com.squareup.picasso.Picasso
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
+import com.yandex.mapkit.layers.ObjectEvent
 import com.yandex.mapkit.map.CameraPosition
+import com.yandex.mapkit.map.CompositeIcon
 import com.yandex.mapkit.mapview.MapView
+import com.yandex.mapkit.user_location.UserLocationLayer
+import com.yandex.mapkit.user_location.UserLocationObjectListener
+import com.yandex.mapkit.user_location.UserLocationView
+import com.yandex.runtime.image.ImageProvider
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,8 +36,12 @@ import com.yandex.mapkit.mapview.MapView
  * Use the [AnimalProfileFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AnimalProfileFragment : Fragment() {
+class AnimalProfileFragment : Fragment(), UserLocationObjectListener {
     private var mapView: MapView? = null
+    private var userLocationLayer: UserLocationLayer? = null
+    private var animal: Animal? = Global.animal
+    private var latitude = animal?.latitude?.toDouble()
+    private var longitude = animal?.longitude?.toDouble()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,12 +65,17 @@ class AnimalProfileFragment : Fragment() {
         val description = root.findViewById<TextView>(R.id.description_animal_profile_text)
         val editFab = root.findViewById<FloatingActionButton>(R.id.edit_animal_profile_fab)
         mapView = root.findViewById<MapView>(R.id.map_profile)
+        val mapKit = MapKitFactory.getInstance()
+        userLocationLayer = mapKit.createUserLocationLayer(mapView?.mapWindow!!)
+        userLocationLayer?.isVisible = true
+        userLocationLayer?.isHeadingEnabled = true
+        userLocationLayer?.setObjectListener(this)
 
 
         var animal: Animal? = Global.animal
-        var latitude = animal?.latitude?.toDouble()
-        var longitude = animal?.longitude?.toDouble()
-        mapView?.map?.move(CameraPosition(Point(latitude!!, longitude!!), 20F, 0F, 0F))
+        latitude = animal?.latitude?.toDouble()
+        longitude = animal?.longitude?.toDouble()
+        mapView?.map?.move(CameraPosition(Point(latitude!!, longitude!!), 18F, 0F, 0F))
 
 
 
@@ -80,6 +98,35 @@ class AnimalProfileFragment : Fragment() {
 
 
         return root
+    }
+
+    override fun onObjectUpdated(p0: UserLocationView, p1: ObjectEvent) {
+
+    }
+
+    override fun onObjectRemoved(p0: UserLocationView) {
+
+    }
+
+    override fun onObjectAdded(userLocationView: UserLocationView) {
+        userLocationLayer?.setAnchor(
+            PointF((mapView?.getWidth()!! * 0.5).toFloat(), (mapView?.getHeight()!! * 0.5).toFloat()),
+            PointF((mapView?.getWidth()!! * 0.5).toFloat(), (mapView?.getHeight()!! * 0.83).toFloat())
+        )
+
+
+        userLocationView.getArrow().setIcon(
+            ImageProvider.fromResource(
+                requireContext(), R.drawable.ic_baseline_navigation_24
+            )
+        )
+        Log.d("Pin22", userLocationView.pin.toString())
+
+        val pinIcon: CompositeIcon = userLocationView.getPin().useCompositeIcon()
+
+
+
+        userLocationView.getAccuracyCircle().setFillColor(Color.BLUE)
     }
 
 
