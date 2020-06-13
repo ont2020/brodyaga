@@ -7,5 +7,6 @@ class Global {
         var animalList = mutableListOf<Animal>()
         var animal: Animal? = null
         var shelter: Shelter? = null
+        var user: User? = null
     }
 }

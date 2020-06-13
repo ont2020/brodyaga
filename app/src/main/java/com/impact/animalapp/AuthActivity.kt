@@ -13,12 +13,13 @@ class AuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
+        createSignInIntent()
     }
 
-    private fun createSignInIntent( navController: NavController) {
+    private fun createSignInIntent() {
         val providers = arrayListOf(
             AuthUI.IdpConfig.EmailBuilder().build())
-        //AuthUI.IdpConfig.PhoneBuilder().build(),
+            AuthUI.IdpConfig.PhoneBuilder().build()
         //AuthUI.IdpConfig.FacebookBuilder().build(),
         //AuthUI.IdpConfig.TwitterBuilder().build())
 
@@ -38,7 +39,6 @@ class AuthActivity : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
 
                 val user = FirebaseAuth.getInstance().currentUser
-
                 startActivity(Intent(this, MainActivity::class.java))
 
 

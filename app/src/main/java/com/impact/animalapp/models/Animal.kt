@@ -9,5 +9,7 @@ data class Animal (
     val image: String,
     val stateHealth: String,
     val isChip: String,
-    val description: String
+    val description: String,
+    val latitude: String,
+    val longitude: String
 )

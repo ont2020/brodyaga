@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.firestore.FirebaseFirestore
 import com.impact.animalapp.R
 import com.impact.animalapp.adapters.AnimalRequestRvAdapter
@@ -50,6 +51,11 @@ class RequestAnimalFragment : Fragment() {
         recyclerView?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         val adapter = AnimalRequestRvAdapter(animalList, navController)
         recyclerView?.adapter = adapter
+        val newAnimalFab = root.findViewById<FloatingActionButton>(R.id.new_animal_add_fab)
+
+        newAnimalFab.setOnClickListener {
+            navController.navigate(R.id.action_requestAnimalFragment_to_newAnimalFragment)
+        }
 
         getData()
 
@@ -85,7 +91,9 @@ class RequestAnimalFragment : Fragment() {
                         document["photo"].toString(),
                         document["state_health"].toString(),
                         document["chip"].toString(),
-                        document["description"].toString()
+                        document["description"].toString(),
+                        document["latitude"].toString(),
+                        document["longitude"].toString()
 
                     )
 

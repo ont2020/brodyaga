@@ -91,7 +91,7 @@ class AuthFragment : Fragment() {
         val navController = findNavController()
         val bundle = Bundle()
 
-        navController.navigate(R.id.action_authFragment_to_animalListFragment)
+        //navController.navigate(R.id.action_authFragment_to_animalListFragment)
     }
 
 

@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -29,6 +30,9 @@ import com.impact.animalapp.models.Global
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.layers.ObjectEvent
+import com.yandex.mapkit.location.Location
+import com.yandex.mapkit.location.LocationListener
+import com.yandex.mapkit.location.LocationStatus
 import com.yandex.mapkit.map.CameraPosition
 import com.yandex.mapkit.map.CompositeIcon
 import com.yandex.mapkit.mapview.MapView
@@ -51,7 +55,7 @@ import java.util.*
  * create an instance of this fragment.
  */
 class NewAnimalFragment : Fragment(), UserLocationObjectListener {
-    private var typeNameList = mutableListOf<String>("Собака", "Кошка", "Корова", "Енот")
+    private var typeNameList = mutableListOf<String>("Собака", "Кошка")
     private val REQUEST_IMAGE_CAPTURE = 1
     private var bitmap: Bitmap? = null
     private var uriImgFile: Uri? = null
@@ -59,6 +63,8 @@ class NewAnimalFragment : Fragment(), UserLocationObjectListener {
     private var downloadUri = ""
     private var userLocationLayer: UserLocationLayer? = null
     private var mapView: MapView? = null
+    private var latitude: Double = 0.0
+    private var longitude: Double = 0.0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -85,6 +91,23 @@ class NewAnimalFragment : Fragment(), UserLocationObjectListener {
         userLocationLayer?.isVisible = true
         userLocationLayer?.isHeadingEnabled = true
         userLocationLayer?.setObjectListener(this)
+
+        var locationManager = MapKitFactory.getInstance().createLocationManager()
+        locationManager!!.requestSingleUpdate(object : LocationListener {
+
+            override fun onLocationStatusUpdated(p0: LocationStatus) {
+
+            }
+
+            override fun onLocationUpdated(p0: Location) {
+                Log.d("MyPositionMap", p0.position.latitude.toString() + p0.position.longitude.toString())
+                latitude = p0.position.latitude
+                longitude = p0.position.longitude
+                Toast.makeText(requireContext(), latitude.toString(), Toast.LENGTH_LONG).show()
+            }
+        })
+
+
 
         val adapter = TypeRvAdapter(typeNameList)
         typeRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -144,7 +167,7 @@ class NewAnimalFragment : Fragment(), UserLocationObjectListener {
             if (task.isSuccessful) {
                 downloadUri = task.result.toString()
                 Log.d("LoadSuccess", downloadUri)
-                loadToFirestore(type, description, contacts, downloadUri)
+                loadToFirestore(type, description, contacts, downloadUri, latitude, longitude)
             } else {
                 // Handle failures
                 // ...
@@ -159,11 +182,14 @@ class NewAnimalFragment : Fragment(), UserLocationObjectListener {
 
     }
 
-    private fun loadToFirestore(type: String, description: String, contacts: String, downloadUri: String) {
+    private fun loadToFirestore(type: String, description: String, contacts: String, downloadUri: String, latitude: Double, longitude: Double) {
 
         val date = Date()
         val time = date.time
         val currentDate = date.date
+
+
+
 
         var hashMap = hashMapOf<String, Any>(
             "type" to type,
@@ -171,7 +197,9 @@ class NewAnimalFragment : Fragment(), UserLocationObjectListener {
             "contacts" to contacts,
             "photo" to downloadUri.toString(),
             "status" to "В обработке",
-            "date" to SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
+            "date" to SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date()),
+            "latitude" to latitude,
+            "longitude" to longitude
 
         )
 

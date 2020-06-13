@@ -32,7 +32,7 @@ class SplashFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_splash, container, false)
         val navController = findNavController()
         val handler = Handler().postDelayed(Runnable {
-            navController.navigate(R.id.action_splashFragment_to_authFragment)
+            //navController.navigate(R.id.action_splashFragment_to_authFragment)
         }, 1000)
         return root
     }
