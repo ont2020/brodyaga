@@ -14,6 +14,10 @@ import com.impact.animalapp.R
 import com.impact.animalapp.models.Animal
 import com.impact.animalapp.models.Global
 import com.squareup.picasso.Picasso
+import com.yandex.mapkit.MapKitFactory
+import com.yandex.mapkit.geometry.Point
+import com.yandex.mapkit.map.CameraPosition
+import com.yandex.mapkit.mapview.MapView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,6 +28,7 @@ import com.squareup.picasso.Picasso
  * create an instance of this fragment.
  */
 class AnimalProfileFragment : Fragment() {
+    private var mapView: MapView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +38,8 @@ class AnimalProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        MapKitFactory.setApiKey("20cec70e-e925-4d2e-8d66-accc84e9b541");
+        MapKitFactory.initialize(requireContext());
         val root = inflater.inflate(R.layout.fragment_animal_profile, container, false)
         val navController = findNavController()
         val image = root.findViewById<ImageView>(R.id.image_animal_profile)
@@ -44,13 +51,13 @@ class AnimalProfileFragment : Fragment() {
         val dateText = root.findViewById<TextView>(R.id.date_profile_text)
         val description = root.findViewById<TextView>(R.id.description_animal_profile_text)
         val editFab = root.findViewById<FloatingActionButton>(R.id.edit_animal_profile_fab)
+        mapView = root.findViewById<MapView>(R.id.map_profile)
 
-        if (Global.user?.isWorker?.contains("true")!!) {
-            editFab.show()
-        } else {
-            editFab.hide()
-        }
+
         var animal: Animal? = Global.animal
+        var latitude = animal?.latitude?.toDouble()
+        var longitude = animal?.longitude?.toDouble()
+        mapView?.map?.move(CameraPosition(Point(latitude!!, longitude!!), 20F, 0F, 0F))
 
 
 

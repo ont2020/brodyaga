@@ -185,7 +185,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Подрядчик:"
+                android:text="Заявитель:"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -262,6 +262,15 @@
                 app:layout_constraintStart_toEndOf="@+id/textView17"
                 app:layout_constraintTop_toBottomOf="@+id/contacts_animal_profile_text"
                 app:layout_constraintVertical_bias="0.0" />
+
+            <com.yandex.mapkit.mapview.MapView
+                android:id="@+id/map_profile"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/description_animal_profile_text" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
