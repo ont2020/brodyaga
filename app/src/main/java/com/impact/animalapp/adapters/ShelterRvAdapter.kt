@@ -25,7 +25,7 @@ class ShelterRvAdapter (private val items: MutableList<Shelter>, var navControll
 
         holder.itemView.setOnClickListener {
             Global.shelter = items[position]
-            navController.navigate(R.id.action_animalListFragment_to_animalProfileFragment)
+            //navController.navigate(R.id.action_animalListFragment_to_animalProfileFragment)
         }
 
     }
@@ -42,10 +42,10 @@ class ShelterRvAdapter (private val items: MutableList<Shelter>, var navControll
             address.text = item.address
 
 
-            /*Picasso.get()
+            Picasso.get()
                 .load(item.image)
                 .error(R.drawable.camera)
-                .into(image)*/
+                .into(image)
 
         }
     }

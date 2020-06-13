@@ -88,7 +88,8 @@ class AuthFragment : Fragment() {
     private fun goToMainFragment(user: FirebaseUser?) {
         val navController = findNavController()
         val bundle = Bundle()
-        navController.navigate(R.id.action_authFragment_to_mainFragment)
+
+        navController.navigate(R.id.action_authFragment_to_animalListFragment)
     }
 
 

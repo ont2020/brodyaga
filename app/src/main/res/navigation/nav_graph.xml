@@ -20,11 +20,11 @@
         android:label="fragment_auth"
         tools:layout="@layout/fragment_auth" >
         <action
-            android:id="@+id/action_authFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
-        <action
             android:id="@+id/action_authFragment_to_advanceAuthFragment"
             app:destination="@id/advanceAuthFragment" />
+        <action
+            android:id="@+id/action_authFragment_to_animalListFragment"
+            app:destination="@id/animalListFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
