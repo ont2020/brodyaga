@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import androidx.navigation.NavController
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
@@ -13,7 +14,16 @@ class AuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
-        createSignInIntent()
+        val workerBtn = findViewById<Button>(R.id.worker_sign_btn)
+        val userBtn = findViewById<Button>(R.id.user_sign_btn)
+
+        workerBtn.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+        }
+        userBtn.setOnClickListener {
+            createSignInIntent()
+        }
+
     }
 
     private fun createSignInIntent() {

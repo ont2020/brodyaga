@@ -57,10 +57,9 @@ dependencies {
     implementation 'com.facebook.android:facebook-android-sdk:5.0.0'
 
     implementation 'com.twitter.sdk.android:twitter-core:3.1.1'
+    implementation 'com.google.firebase:firebase-firestore:21.4.3'
 
-    implementation 'com.google.firebase:firebase-auth:16.0.5'
-
-
+    implementation 'com.google.firebase:firebase-auth:19.3.1'
 
 
     implementation 'com.yandex.android:mapkit:3.5.0'
