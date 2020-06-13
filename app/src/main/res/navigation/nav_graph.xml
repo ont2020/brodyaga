@@ -85,5 +85,14 @@
         android:id="@+id/shelterFragment"
         android:name="com.impact.animalapp.fragments.ShelterFragment"
         android:label="fragment_shelter"
-        tools:layout="@layout/fragment_shelter" />
+        tools:layout="@layout/fragment_shelter" >
+        <action
+            android:id="@+id/action_shelterFragment_to_shelterProfileFragment"
+            app:destination="@id/shelterProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shelterProfileFragment"
+        android:name="com.impact.animalapp.fragments.ShelterProfileFragment"
+        android:label="fragment_shelter_profile"
+        tools:layout="@layout/fragment_shelter_profile" />
 </navigation>

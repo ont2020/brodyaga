@@ -25,7 +25,7 @@ class ShelterRvAdapter (private val items: MutableList<Shelter>, var navControll
 
         holder.itemView.setOnClickListener {
             Global.shelter = items[position]
-            //navController.navigate(R.id.action_animalListFragment_to_animalProfileFragment)
+            navController.navigate(R.id.action_shelterFragment_to_shelterProfileFragment)
         }
 
     }
