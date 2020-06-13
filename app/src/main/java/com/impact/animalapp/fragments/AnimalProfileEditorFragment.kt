@@ -12,6 +12,8 @@ import android.widget.TextView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import com.impact.animalapp.R
+import com.impact.animalapp.models.Global
+import com.squareup.picasso.Picasso
 
 
 class AnimalProfileEditorFragment : Fragment() {
@@ -35,6 +37,27 @@ class AnimalProfileEditorFragment : Fragment() {
         var descriptionText = root.findViewById<TextInputEditText>(R.id.radioEditGroup)
         var dateText = root.findViewById<TextView>(R.id.radioEditGroup)
         var acceptEditFab = root.findViewById<FloatingActionButton>(R.id.accept_edit_fab)
+
+        var animal = Global.animal
+
+        Picasso.get()
+            .load(animal?.image)
+            .into(imageEditor)
+        typeText.text = animal?.type
+        contactsText.hint = animal?.contacts
+        var chip = "true"
+        var chipCurrent = animal?.isChip
+        if (chip == chipCurrent) {
+            isChip.isChecked = true
+        } else {
+            isChip.isChecked = false
+        }
+        healthText.hint = animal?.stateHealth
+        descriptionText.hint = animal?.description
+        dateText.text = animal?.date_require
+        var status = animal?.status
+
+        
         return root
     }
 }
