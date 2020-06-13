@@ -54,7 +54,11 @@
         android:id="@+id/animalProfileFragment"
         android:name="com.impact.animalapp.fragments.AnimalProfileFragment"
         android:label="fragment_animal_profile"
-        tools:layout="@layout/fragment_animal_profile" />
+        tools:layout="@layout/fragment_animal_profile" >
+        <action
+            android:id="@+id/action_animalProfileFragment_to_animalProfileEditorFragment"
+            app:destination="@id/animalProfileEditorFragment" />
+    </fragment>
     <fragment
         android:id="@+id/animalListFragment"
         android:name="com.impact.animalapp.fragments.AnimalListFragment"
@@ -78,6 +82,11 @@
         android:name="com.impact.animalapp.fragments.ShelterProfileFragment"
         android:label="fragment_shelter_profile"
         tools:layout="@layout/fragment_shelter_profile" />
+    <fragment
+        android:id="@+id/animalProfileEditorFragment"
+        android:name="com.impact.animalapp.fragments.AnimalProfileEditorFragment"
+        android:label="fragment_animal_profile_editor"
+        tools:layout="@layout/fragment_animal_profile_editor" />
 
 
 </navigation>

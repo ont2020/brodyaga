@@ -52,7 +52,7 @@ class RequestAnimalFragment : Fragment() {
         val adapter = AnimalRequestRvAdapter(animalList, navController)
         recyclerView?.adapter = adapter
         val newAnimalFab = root.findViewById<FloatingActionButton>(R.id.new_animal_add_fab)
-        
+
 
         newAnimalFab.setOnClickListener {
             navController.navigate(R.id.action_requestAnimalFragment_to_newAnimalFragment)

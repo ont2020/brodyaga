@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import com.impact.animalapp.R
 import com.impact.animalapp.models.Animal
@@ -32,6 +34,7 @@ class AnimalProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_animal_profile, container, false)
+        val navController = findNavController()
         val image = root.findViewById<ImageView>(R.id.image_animal_profile)
         val status = root.findViewById<TextView>(R.id.status_animal_profile_text)
         val stateHealth = root.findViewById<TextView>(R.id.state_health_animal_profile)
@@ -40,7 +43,16 @@ class AnimalProfileFragment : Fragment() {
         val contacts = root.findViewById<TextView>(R.id.contacts_animal_profile_text)
         val dateText = root.findViewById<TextView>(R.id.date_profile_text)
         val description = root.findViewById<TextView>(R.id.description_animal_profile_text)
+        val editFab = root.findViewById<FloatingActionButton>(R.id.edit_animal_profile_fab)
+
+        if (Global.user?.isWorker?.contains("true")!!) {
+            editFab.show()
+        } else {
+            editFab.hide()
+        }
         var animal: Animal? = Global.animal
+
+
 
         Picasso.get().load(animal?.image).into(image)
         status.text = animal?.status
@@ -52,6 +64,12 @@ class AnimalProfileFragment : Fragment() {
         contacts.text = animal?.contacts
         dateText.text = animal?.date_require
         description.text = animal?.description
+
+
+
+        editFab.setOnClickListener {
+            navController.navigate(R.id.action_animalProfileFragment_to_animalProfileEditorFragment)
+        }
 
 
         return root
