@@ -12,8 +12,10 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.impact.animalapp.MainActivity
 import com.impact.animalapp.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -40,6 +42,7 @@ class AuthFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_auth, container, false)
         val simpleBtn = root.findViewById<Button>(R.id.simple_auth_btn)
         val navController = findNavController()
+
 
 
         simpleBtn.setOnClickListener {
@@ -91,6 +94,8 @@ class AuthFragment : Fragment() {
 
         navController.navigate(R.id.action_authFragment_to_animalListFragment)
     }
+
+
 
 
 }

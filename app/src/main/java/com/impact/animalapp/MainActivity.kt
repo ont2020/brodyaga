@@ -14,10 +14,9 @@ class MainActivity : AppCompatActivity() {
 
 
         val navView: BottomNavigationView = findViewById(R.id.bottomNavView)
-
+        showBottomNavigationView(navView)
         val navController = findNavController(R.id.fragment_host)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.animalListFragment, R.id.requestAnimalFragment, R.id.shelterFragment
@@ -25,5 +24,19 @@ class MainActivity : AppCompatActivity() {
         )
 
         navView.setupWithNavController(navController)
+
+
+
     }
+
+    fun hideBottomNavigationView(view: BottomNavigationView) {
+        view.clearAnimation();
+        view.animate().translationY(view.getHeight().toFloat()).setDuration(300);
+    }
+
+    fun showBottomNavigationView(view: BottomNavigationView) {
+        view.clearAnimation();
+        view.animate().translationY(0F).setDuration(300);
+    }
+
 }
