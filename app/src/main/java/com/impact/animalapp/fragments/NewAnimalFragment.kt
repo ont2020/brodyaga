@@ -201,7 +201,8 @@ class NewAnimalFragment : Fragment(), UserLocationObjectListener {
             "latitude" to latitude,
             "longitude" to longitude,
             "shelter" to "Нету",
-            "state_health" to "Не определено"
+            "state_health" to "Не определено",
+            "chip" to false
 
         )
 
