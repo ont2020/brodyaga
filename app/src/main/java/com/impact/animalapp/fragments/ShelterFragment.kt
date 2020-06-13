@@ -74,13 +74,14 @@ class ShelterFragment : Fragment() {
                 val documentList = it.documents
                 for (document in it.documents) {
                     var shelter = Shelter(
+                        document.id,
                         document["name"].toString(),
                         document["address"].toString(),
                         document["contacts"].toString(),
                         document["description"].toString(),
                         document["schedule"].toString(),
-                        document["image"].toString(),
-                        document.id
+                        document["image"].toString()
+
                     )
 
                     shelterList.add(shelter)

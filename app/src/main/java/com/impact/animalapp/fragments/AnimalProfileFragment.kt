@@ -83,8 +83,6 @@ class AnimalProfileFragment : Fragment(), UserLocationObjectListener {
         status.text = animal?.status
         stateHealth.text = animal?.stateHealth
         isChip.text = animal?.isChip.toString()
-        stateHealth.text = animal?.stateHealth
-        stateHealth.text = animal?.stateHealth
         shelter.text = animal?.shelter
         contacts.text = animal?.contacts
         dateText.text = animal?.date_require

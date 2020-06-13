@@ -47,16 +47,15 @@ class AnimalProfileEditorFragment : Fragment() {
         var typeText = root.findViewById<TextView>(R.id.type_editor)
         var contactsText = root.findViewById<TextInputEditText>(R.id.contacts_editor)
         var isChip = root.findViewById<CheckBox>(R.id.isChipCheckBox)
-        var healthText = root.findViewById<TextInputEditText>(R.id.image_animal_editor)
+        var healthText = root.findViewById<TextInputEditText>(R.id.state_health_editor_text)
         var statusRadio = root.findViewById<RadioGroup>(R.id.radioEditGroup)
-        var descriptionText = root.findViewById<TextInputEditText>(R.id.radioEditGroup)
-        var dateText = root.findViewById<TextView>(R.id.radioEditGroup)
+        var descriptionText = root.findViewById<TextInputEditText>(R.id.description_editor_text)
+        var dateText = root.findViewById<TextView>(R.id.date_editor_text)
         var acceptEditFab = root.findViewById<FloatingActionButton>(R.id.accept_edit_fab)
 
         shelterRv = root.findViewById<RecyclerView>(R.id.shelter_rv)
         shelterRv?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         val adapter = ShelterInProfileRvAdapter(shelterList)
-
         shelterRv?.adapter = adapter
 
         var animal = Global.animal
@@ -82,7 +81,7 @@ class AnimalProfileEditorFragment : Fragment() {
             RadioGroup.OnCheckedChangeListener { radioGroup, i ->
                 val radioButton = root.findViewById<RadioButton>(i)
                 when (i) {
-                    0 -> animal?.status = "В процессе"
+                    0 -> animal?.status = "В обработке"
                     1 -> animal?.status = "В приюте"
                     2 -> animal?.status = "На улице"
                     3 -> animal?.status = "Найден хозяин"
@@ -96,7 +95,7 @@ class AnimalProfileEditorFragment : Fragment() {
         var radioButton3 = root.findViewById<RadioButton>(R.id.radio3_edit)
         var radioButton4 = root.findViewById<RadioButton>(R.id.radio4_edit)
         when (status) {
-            "В процессе" -> statusRadio.check(R.id.radio1_edit)
+            "В обработке" -> statusRadio.check(R.id.radio1_edit)
             "В приюте" -> statusRadio.check(R.id.radio2_edit)
             "На улице" -> statusRadio.check(R.id.radio3_edit)
             "Найден хозяин" -> statusRadio.check(R.id.radio4_edit)
@@ -114,7 +113,7 @@ class AnimalProfileEditorFragment : Fragment() {
             var contacts = contactsText.text.toString()
             var health = healthText.text.toString()
             var description = descriptionText.text.toString()
-            var statusCurrent = Global.animal?.status
+            var statusCurrent = animal?.status
             var isChipCurrent = Global.animal?.isChip
             var docId = Global.animal?.animalDocId
             if (docId != null) {
@@ -122,6 +121,7 @@ class AnimalProfileEditorFragment : Fragment() {
             }
         }
         getData()
+
         return root
     }
 
@@ -163,20 +163,21 @@ class AnimalProfileEditorFragment : Fragment() {
 
     suspend fun getShelterList(): MutableList<Shelter> {
         var firebaseFirestore = FirebaseFirestore.getInstance()
-            .collection("shelters")
+        firebaseFirestore.collection("shelters")
             .get()
             .addOnSuccessListener {
                 Log.d("LoadedRequire", it.documents.size.toString())
                 val documentList = it.documents
                 for (document in it.documents) {
                     var shelter = Shelter(
+                        document.id,
                         document["name"].toString(),
                         document["address"].toString(),
                         document["contacts"].toString(),
                         document["description"].toString(),
                         document["schedule"].toString(),
-                        document["image"].toString(),
-                        document.id
+                        document["image"].toString()
+
                     )
 
                     shelterList.add(shelter)
