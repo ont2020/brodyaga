@@ -79,6 +79,7 @@ class WorkerLoginActivity : AppCompatActivity() {
                             it["email"].toString()
                         )
                         Global.user = user
+                        Global.isWorker = true
                         startActivity(Intent(this, MainActivity::class.java))
 
 

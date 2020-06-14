@@ -9,6 +9,7 @@ import androidx.navigation.NavController
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
+import com.impact.animalapp.models.Global
 import com.impact.animalapp.worker.WorkerLoginActivity
 
 class AuthActivity : AppCompatActivity() {
@@ -23,6 +24,7 @@ class AuthActivity : AppCompatActivity() {
         }
         userBtn.setOnClickListener {
             createSignInIntent()
+
         }
 
     }
@@ -50,6 +52,7 @@ class AuthActivity : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
 
                 val user = FirebaseAuth.getInstance().currentUser
+                Global.isWorker = false
                 startActivity(Intent(this, MainActivity::class.java))
 
 

@@ -91,7 +91,8 @@ class AnimalProfileFragment : Fragment(), UserLocationObjectListener {
 
 
         editFab.setOnClickListener {
-            navController.navigate(R.id.action_animalProfileFragment_to_animalProfileEditorFragment)
+            navController.navigate(R.id.action_animalProfileEditorFragment_to_animalListFragment)
+            onDetach()
         }
 
 

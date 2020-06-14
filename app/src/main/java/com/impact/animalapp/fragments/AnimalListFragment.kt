@@ -98,11 +98,11 @@ class AnimalListFragment : Fragment() {
                     animalList.add(animal)
 
                     Global.animalList = animalList
+                }
 
-                    for (i  in 0 until animalList.size) {
-                        if (!animalList[i].status.equals("В обработке")) {
-                            animalCurrentList.add(animalList[i])
-                        }
+                for (i  in 0 until animalList.size) {
+                    if (!animalList[i].status.equals("В обработке")) {
+                        animalCurrentList.add(animalList[i])
                     }
                 }
                 recyclerView?.adapter?.notifyDataSetChanged()

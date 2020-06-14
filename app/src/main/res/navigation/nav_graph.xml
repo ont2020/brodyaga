@@ -90,6 +90,9 @@
         <action
             android:id="@+id/action_animalProfileEditorFragment_to_animalProfileFragment"
             app:destination="@id/animalProfileFragment" />
+        <action
+            android:id="@+id/action_animalProfileEditorFragment_to_animalListFragment"
+            app:destination="@id/animalListFragment" />
     </fragment>
 
 

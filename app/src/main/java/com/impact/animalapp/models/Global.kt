@@ -10,5 +10,6 @@ class Global {
         var user: User? = null
         var selectedShelter: String? = null
         var shelterList = mutableListOf<Shelter>()
+        var isWorker = false
     }
 }
