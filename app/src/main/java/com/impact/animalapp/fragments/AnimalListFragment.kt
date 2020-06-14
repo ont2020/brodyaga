@@ -17,6 +17,7 @@ import com.impact.animalapp.adapters.AllAnimalRvAdapter
 import com.impact.animalapp.adapters.AnimalRequestRvAdapter
 import com.impact.animalapp.models.Animal
 import com.impact.animalapp.models.Global
+import com.impact.animalapp.models.Shelter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -36,6 +37,7 @@ class AnimalListFragment : Fragment() {
     private val db = FirebaseFirestore.getInstance()
     private val animalRef = db.collection("animals")
     private var animalList = mutableListOf<Animal>()
+    private var animalCurrentList = mutableListOf<Animal>()
     private var recyclerView: RecyclerView? = null
 
 
@@ -52,7 +54,7 @@ class AnimalListFragment : Fragment() {
         val navController = findNavController()
         recyclerView = root.findViewById<RecyclerView>(R.id.animal_main_rv)
         recyclerView?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        val adapter = AllAnimalRvAdapter(animalList, navController)
+        val adapter = AllAnimalRvAdapter(animalCurrentList, navController)
         //adapter.notifyDataSetChanged()
         recyclerView?.adapter = adapter
 
@@ -65,6 +67,7 @@ class AnimalListFragment : Fragment() {
         CoroutineScope(Dispatchers.IO).launch {
             getAnimalList()
             delay(2000)
+            getShelterList()
         }
     }
 
@@ -95,6 +98,12 @@ class AnimalListFragment : Fragment() {
                     animalList.add(animal)
 
                     Global.animalList = animalList
+
+                    for (animal in animalList) {
+                        if (!animal.status.equals("В обработке")) {
+                            animalCurrentList.add(animal)
+                        }
+                    }
                 }
                 recyclerView?.adapter?.notifyDataSetChanged()
                 Log.d("Animal", animalList.size.toString())
@@ -111,6 +120,43 @@ class AnimalListFragment : Fragment() {
             .setQuery(query, Note::class.java)
             .build()
     }*/
+
+
+
+    suspend fun getShelterList(): MutableList<Shelter> {
+        var shelterList = mutableListOf<Shelter>()
+        var firebaseFirestore = FirebaseFirestore.getInstance()
+        firebaseFirestore.collection("shelters")
+            .get()
+            .addOnSuccessListener {
+                Log.d("LoadedRequire", it.documents.size.toString())
+                val documentList = it.documents
+                for (document in it.documents) {
+                    var shelter = Shelter(
+                        document.id,
+                        document["name"].toString(),
+                        document["address"].toString(),
+                        document["contacts"].toString(),
+                        document["description"].toString(),
+                        document["schedule"].toString(),
+                        document["image"].toString()
+
+                    )
+
+                    shelterList.add(shelter)
+
+                    //Global.animalList = animalList
+                }
+                Global.shelterList = shelterList
+
+                Log.d("Shelter", shelterList.size.toString())
+
+            }
+            .addOnFailureListener {
+                Log.d("LoadFail", it.message.toString())
+            }
+        return shelterList
+    }
 
 
 

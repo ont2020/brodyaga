@@ -52,6 +52,7 @@ class AnimalProfileEditorFragment : Fragment() {
         var descriptionText = root.findViewById<TextInputEditText>(R.id.description_editor_text)
         var dateText = root.findViewById<TextView>(R.id.date_editor_text)
         var acceptEditFab = root.findViewById<FloatingActionButton>(R.id.accept_edit_fab)
+        shelterList = Global.shelterList
 
         shelterRv = root.findViewById<RecyclerView>(R.id.shelter_rv)
         shelterRv?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -120,7 +121,7 @@ class AnimalProfileEditorFragment : Fragment() {
                 writeData(navController, contacts, health, description, statusCurrent, isChipCurrent, docId)
             }
         }
-        getData()
+
 
         return root
     }
@@ -154,43 +155,5 @@ class AnimalProfileEditorFragment : Fragment() {
             }
     }
 
-    private fun getData() {
-        CoroutineScope(Dispatchers.IO).launch {
-            getShelterList()
-            delay(2000)
-        }
-    }
 
-    suspend fun getShelterList(): MutableList<Shelter> {
-        var firebaseFirestore = FirebaseFirestore.getInstance()
-        firebaseFirestore.collection("shelters")
-            .get()
-            .addOnSuccessListener {
-                Log.d("LoadedRequire", it.documents.size.toString())
-                val documentList = it.documents
-                for (document in it.documents) {
-                    var shelter = Shelter(
-                        document.id,
-                        document["name"].toString(),
-                        document["address"].toString(),
-                        document["contacts"].toString(),
-                        document["description"].toString(),
-                        document["schedule"].toString(),
-                        document["image"].toString()
-
-                    )
-
-                    shelterList.add(shelter)
-
-                    //Global.animalList = animalList
-                }
-                shelterRv?.adapter?.notifyDataSetChanged()
-                Log.d("Shelter", shelterList.size.toString())
-
-            }
-            .addOnFailureListener {
-                Log.d("LoadFail", it.message.toString())
-            }
-        return shelterList
-    }
 }
