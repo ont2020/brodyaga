@@ -71,6 +71,13 @@ class AnimalProfileFragment : Fragment(), UserLocationObjectListener {
         userLocationLayer?.isHeadingEnabled = true
         userLocationLayer?.setObjectListener(this)
 
+        if (Global.isWorker) {
+            editFab.show()
+        } else {
+            editFab.hide()
+        }
+
+
 
         var animal: Animal? = Global.animal
         latitude = animal?.latitude?.toDouble()
@@ -91,7 +98,7 @@ class AnimalProfileFragment : Fragment(), UserLocationObjectListener {
 
 
         editFab.setOnClickListener {
-            navController.navigate(R.id.action_animalProfileEditorFragment_to_animalListFragment)
+            navController.navigate(R.id.action_animalProfileFragment_to_animalProfileEditorFragment)
             onDetach()
         }
 

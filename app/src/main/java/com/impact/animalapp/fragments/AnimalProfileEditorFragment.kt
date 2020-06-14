@@ -52,6 +52,8 @@ class AnimalProfileEditorFragment : Fragment() {
         var descriptionText = root.findViewById<TextInputEditText>(R.id.description_editor_text)
         var dateText = root.findViewById<TextView>(R.id.date_editor_text)
         var acceptEditFab = root.findViewById<FloatingActionButton>(R.id.accept_edit_fab)
+        val contactsTextView = root.findViewById<TextView>(R.id.contacts_edit_text)
+        val healhTextView = root.findViewById<TextView>(R.id.health_edit_text)
         shelterList = Global.shelterList
 
         shelterRv = root.findViewById<RecyclerView>(R.id.shelter_profile_editor_rv)
@@ -66,7 +68,6 @@ class AnimalProfileEditorFragment : Fragment() {
             .load(animal?.image)
             .into(imageEditor)
         typeText.text = animal?.type
-        contactsText.hint = animal?.contacts
         var chip = "true"
         var chipCurrent = animal?.isChip
         if (chip == chipCurrent) {
@@ -74,8 +75,8 @@ class AnimalProfileEditorFragment : Fragment() {
         } else {
             isChip.isChecked = false
         }
-        healthText.hint = animal?.stateHealth
-        descriptionText.hint = animal?.description
+        contactsTextView.text = animal?.contacts
+        healhTextView.text = animal?.stateHealth
         dateText.text = animal?.date_require
         var status = animal?.status
 
