@@ -11,9 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.impact.animalapp.R
 import com.impact.animalapp.models.Global
 
-class TypeRvAdapter (private val items: MutableList<String>): RecyclerView.Adapter<TypeRvAdapter.ViewHolder>() {
+class TypeRvAdapter (private val items: MutableList<String>, var img: MutableList<Int>): RecyclerView.Adapter<TypeRvAdapter.ViewHolder>() {
     private var posSelected = -1
     private var listener: OnСlickListener? = null
+    private var positionGlobal: Int = -1
 
 
     fun setListener(listener: OnСlickListener) {
@@ -31,7 +32,8 @@ class TypeRvAdapter (private val items: MutableList<String>): RecyclerView.Adapt
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.bind(items[position])
+        holder.bind(items[position], img[position])
+
         if(posSelected == position) {
             holder.itemView.setBackgroundColor(Color.parseColor("#FF9800"))
         } else {
@@ -54,8 +56,8 @@ class TypeRvAdapter (private val items: MutableList<String>): RecyclerView.Adapt
         private var imageType = itemView.findViewById<ImageView>(R.id.image_type)
         private var textType = itemView.findViewById<TextView>(R.id.type_name_text)
 
-        fun  bind(item: String) {
-            imageType.setImageResource(R.drawable.dog)
+        fun  bind(item: String, img: Int) {
+            imageType.setImageResource(img)
             textType.text = item
         }
     }

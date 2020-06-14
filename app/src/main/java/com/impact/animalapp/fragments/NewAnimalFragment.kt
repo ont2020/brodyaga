@@ -56,6 +56,7 @@ import java.util.*
  */
 class NewAnimalFragment : Fragment(), UserLocationObjectListener {
     private var typeNameList = mutableListOf<String>("Собака", "Кошка")
+    private var typeImgList = mutableListOf<Int>(R.drawable.dog, R.drawable.cat)
     private val REQUEST_IMAGE_CAPTURE = 1
     private var bitmap: Bitmap? = null
     private var uriImgFile: Uri? = null
@@ -109,7 +110,7 @@ class NewAnimalFragment : Fragment(), UserLocationObjectListener {
 
 
 
-        val adapter = TypeRvAdapter(typeNameList)
+        val adapter = TypeRvAdapter(typeNameList, typeImgList)
         typeRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         typeRv.adapter = adapter
 
