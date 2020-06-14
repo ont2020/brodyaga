@@ -1,5 +1,6 @@
 package com.impact.animalapp.fragments
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.PointF
 import android.os.Bundle
@@ -57,6 +58,7 @@ class AnimalProfileFragment : Fragment(), UserLocationObjectListener {
         val navController = findNavController()
         val image = root.findViewById<ImageView>(R.id.image_animal_profile)
         val status = root.findViewById<TextView>(R.id.status_animal_profile_text)
+        val typeText = root.findViewById<TextView>(R.id.type_animal_text)
         val stateHealth = root.findViewById<TextView>(R.id.state_health_animal_profile)
         val isChip = root.findViewById<TextView>(R.id.chip_bool_profile)
         val shelter = root.findViewById<TextView>(R.id.shelter_animal_profile_text)
@@ -94,6 +96,7 @@ class AnimalProfileFragment : Fragment(), UserLocationObjectListener {
         contacts.text = animal?.contacts
         dateText.text = animal?.date_require
         description.text = animal?.description
+        typeText.text = animal?.type
 
 
 
@@ -134,6 +137,7 @@ class AnimalProfileFragment : Fragment(), UserLocationObjectListener {
 
         userLocationView.getAccuracyCircle().setFillColor(Color.BLUE)
     }
+
 
 
 }

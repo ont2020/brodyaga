@@ -180,6 +180,52 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView15"
                 app:layout_constraintVertical_bias="0.0" />
 
+            <View
+                android:id="@+id/divider10"
+                android:layout_width="409dp"
+                android:layout_height="2dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginEnd="1dp"
+                android:background="@color/divider"
+                app:layout_constraintBottom_toTopOf="@+id/address_shelter_profile_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name_shelter_text" />
+
+            <View
+                android:id="@+id/divider11"
+                android:layout_width="409dp"
+                android:layout_height="2dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginEnd="1dp"
+                android:background="@color/divider"
+                app:layout_constraintBottom_toTopOf="@+id/schedule_shelter_profile"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/address_shelter_profile_text" />
+
+            <View
+                android:id="@+id/divider12"
+                android:layout_width="409dp"
+                android:layout_height="2dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginEnd="1dp"
+                android:background="@color/divider"
+                app:layout_constraintBottom_toTopOf="@+id/contacts_shelter_profile"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/schedule_shelter_profile" />
+
+            <View
+                android:id="@+id/divider13"
+                android:layout_width="409dp"
+                android:layout_height="2dp"
+                android:background="@color/divider"
+                app:layout_constraintBottom_toTopOf="@+id/textView15"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/contacts_shelter_profile" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
         <!--</androidx.core.widget.NestedScrollView>-->
