@@ -54,8 +54,9 @@ class AnimalProfileEditorFragment : Fragment() {
         var acceptEditFab = root.findViewById<FloatingActionButton>(R.id.accept_edit_fab)
         shelterList = Global.shelterList
 
-        shelterRv = root.findViewById<RecyclerView>(R.id.shelter_rv)
+        shelterRv = root.findViewById<RecyclerView>(R.id.shelter_profile_editor_rv)
         shelterRv?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        Log.d("Shelter", shelterList.size.toString())
         val adapter = ShelterInProfileRvAdapter(shelterList)
         shelterRv?.adapter = adapter
 

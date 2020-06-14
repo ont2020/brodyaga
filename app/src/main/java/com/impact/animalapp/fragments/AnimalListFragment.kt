@@ -99,9 +99,9 @@ class AnimalListFragment : Fragment() {
 
                     Global.animalList = animalList
 
-                    for (animal in animalList) {
-                        if (!animal.status.equals("В обработке")) {
-                            animalCurrentList.add(animal)
+                    for (i  in 0 until animalList.size) {
+                        if (!animalList[i].status.equals("В обработке")) {
+                            animalCurrentList.add(animalList[i])
                         }
                     }
                 }
